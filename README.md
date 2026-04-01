@@ -2,7 +2,7 @@
 
 ## Buggy Repo Link: https://github.com/DaneshVerma/kodex-debug-battel-contextAPI
 
-## Final output : kodex-debug-react.vercel.app](https://kodex-debug-react.vercel.app/
+## Final output : https://kodex-debug-react.vercel.app/
 
 ## 🎯 Challenge Overview
 
