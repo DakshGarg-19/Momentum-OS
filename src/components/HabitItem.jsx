@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { useHabit } from "../context/HabitContext";
 
-/* ─── BUG: The entire JSX return was a <div> with no Tailwind classes. Habit
-   name, streak, and buttons were bare inline text nodes — no card styling,
-   no priority badge, no goal display, no progress indication. The browser
-   rendered them as unstyled stacked text.
-   BUG: `today` used split("T")[1] → TIME string → isDoneToday always false.
-   BUG: `setEditing(true)` after save → user locked in edit mode forever.
-   BUG: Direct object mutation `editData.name = e.target.value` → no re-render. */
-
 const PRIORITY_STYLES = {
   high: "bg-red-100 text-red-700",
   medium: "bg-amber-100 text-amber-700",
@@ -21,19 +13,16 @@ const HabitItem = ({ habit }) => {
   const [editing, setEditing] = useState(false);
   const [editData, setEditData] = useState(habit);
 
-  /* BUG FIX: split("T")[1] → TIME. Corrected to split("T")[0] → "YYYY-MM-DD" */
   const today = new Date().toISOString().split("T")[0];
   const isDoneToday = habit.completedDates.includes(today);
   const streak = getStreak(habit.completedDates);
 
   const handleSave = () => {
     updateHabit(habit.id, editData);
-    /* BUG FIX: was `setEditing(true)` — locked user in edit mode permanently.
-       Corrected to `setEditing(false)` to return to view mode after saving. */
+
     setEditing(false);
   };
 
-  /* ── Edit mode ─────────────────────────────────────────────────────────── */
   if (editing) {
     return (
       <div className="bg-white border border-indigo-300 rounded-lg p-4 shadow-sm space-y-3">
@@ -44,8 +33,6 @@ const HabitItem = ({ habit }) => {
           <label className="block text-xs font-semibold text-slate-600 mb-1">
             Habit Name
           </label>
-          {/* BUG FIX: was `editData.name = e.target.value` (direct mutation,
-              no re-render). Corrected to use `setEditData` setter with spread. */}
           <input
             value={editData.name}
             onChange={(e) =>
@@ -99,7 +86,6 @@ const HabitItem = ({ habit }) => {
     );
   }
 
-  /* ── View mode ─────────────────────────────────────────────────────────── */
   const priorityLabel = habit.priority || "medium";
   const priorityStyle =
     PRIORITY_STYLES[priorityLabel] || PRIORITY_STYLES.medium;
@@ -112,7 +98,6 @@ const HabitItem = ({ habit }) => {
           : "border-slate-200 opacity-100"
       }`}
     >
-      {/* ── Top row: badges + streak ──────────────────────────────────────── */}
       <div className="flex items-start justify-between mb-2">
         <div className="flex items-center gap-2 flex-wrap">
           {habit.category && (
@@ -133,7 +118,6 @@ const HabitItem = ({ habit }) => {
         </div>
       </div>
 
-      {/* ── Habit name ────────────────────────────────────────────────────── */}
       <h3
         className={`text-base font-bold mb-3 ${
           isDoneToday
@@ -144,7 +128,6 @@ const HabitItem = ({ habit }) => {
         {habit.name}
       </h3>
 
-      {/* ── Goal + actions ────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">

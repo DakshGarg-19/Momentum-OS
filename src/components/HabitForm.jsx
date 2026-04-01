@@ -1,12 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useHabit } from "../context/HabitContext";
 
-/* ─── BUG: The entire JSX return was stripped down to three bare <input> and
-   <button> tags with zero Tailwind classes. React rendered them as plain text
-   labels because there were no wrapping container elements, no <label>s, no
-   <select>s, and no structure — just bare HTML that the browser flattened into
-   inline text nodes. Fix: restore the complete, styled form JSX. ─────────── */
-
 const UNITS = ["Minutes", "Hours", "Reps", "Pages", "km"];
 const CATEGORIES = ["Health", "Fitness", "Mindset", "Learning", "Creativity", "Productivity"];
 
@@ -35,13 +29,12 @@ const HabitForm = () => {
       goalValue: Number(values.goalValue) || 0,
     };
     addHabit(payload);
-    /* BUG: `reset;` — was a bare reference (no-op). Fixed: `reset()` invocation. */
+
     reset();
   };
 
   return (
     <form onSubmit={handleSubmit(onCommit)} className="space-y-4">
-      {/* ── Habit Name ─────────────────────────────────────────────────────── */}
       <div>
         <label className="block text-xs font-semibold text-slate-600 mb-1">
           Habit Name
@@ -60,7 +53,6 @@ const HabitForm = () => {
         )}
       </div>
 
-      {/* ── Daily Goal + Unit ───────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="block text-xs font-semibold text-slate-600 mb-1">
@@ -91,7 +83,6 @@ const HabitForm = () => {
         </div>
       </div>
 
-      {/* ── Start Date + Category ───────────────────────────────────────────── */}
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="block text-xs font-semibold text-slate-600 mb-1">
@@ -120,7 +111,6 @@ const HabitForm = () => {
         </div>
       </div>
 
-      {/* ── Motivation ─────────────────────────────────────────────────────── */}
       <div>
         <label className="block text-xs font-semibold text-slate-600 mb-1">
           Motivation
@@ -133,7 +123,6 @@ const HabitForm = () => {
         />
       </div>
 
-      {/* ── Priority Level ─────────────────────────────────────────────────── */}
       <div>
         <label className="block text-xs font-semibold text-slate-600 mb-2">
           Priority Level
@@ -156,7 +145,6 @@ const HabitForm = () => {
         </div>
       </div>
 
-      {/* ── Submit ─────────────────────────────────────────────────────────── */}
       <button
         type="submit"
         className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-semibold rounded-md transition-colors"
