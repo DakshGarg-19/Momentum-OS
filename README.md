@@ -1,89 +1,64 @@
-# 🐞 Debug Battle — Habit Tracker (React + Context API)
+# Momentum OS
 
-## Buggy Repo Link: https://github.com/DaneshVerma/kodex-debug-battel-contextAPI
+**Momentum OS** is a professional-grade, local-first behavioral telemetry system designed for continuous forward motion. It evolves the concept of a "habit tracker" into a clinical, data-driven operating system for managing complex goals (Vectors) and quantifying execution momentum.
 
-## Final output : https://kodex-debug-react.vercel.app/
+![Momentum OS Showcase](https://raw.githubusercontent.com/DakshGarg-19/Momentum-OS/main/public/showcase-placeholder.png) *(Placeholder: Replace with actual screenshot)*
 
-## 🎯 Challenge Overview
+## ⚡ Core Philosophy: Vectors vs Tasks
 
-Welcome to the **Debug Battle**! You've been handed a **Habit Tracker** application built with **React**, **Vite**, and the **Context API**. The app is designed to let users create daily habits, mark them as complete, track streaks, edit, and delete habits.
+Traditional to-do lists focus on binary completion. Momentum OS focuses on **Vectors**:
+- **Vectors:** Strategic directions composed of Build, Explore, and Avoid strategies.
+- **Momentum:** A self-decaying metric that rewards daily consistency over sporadic bursts.
+- **Action Velocity:** A precise calculation of `(Progress Events) / (Effective Focus Hours)`.
 
-**There's just one problem — the codebase is riddled with bugs.** 💥
+## 🛠️ Key Features
 
-The application looks like it should work, but almost nothing functions correctly. Your mission is to find and fix **all the bugs** hidden across the project files to get the app fully working.
+- **Draggable Focus Engine:** A floating Pomodoro timer that appends focus data directly to your active Vectors.
+- **Integrated Data Terminal:** Full-screen dashboard with Recharts visualization for activity timelines, vector distribution, and task volume.
+- **Strategic AI Audit:** Built-in `puter.js` integration for deep behavioral analysis and automated clinical feedback on your progress.
+- **Privacy First:** local-first architecture. All data stays in `localStorage` with built-in export/import JSON portability.
+- **Cyberpunk Aesthetic:** Deep indigo palette, glassmorphism, and high-contrast telemetry indicators.
 
----
+## 📊 The Math Engine
 
-## 📋 Rules
-
-1. **Find and fix all the bugs** in the codebase.
-2. Bugs are spread across **multiple files** — no file is safe!   - 🔴 **State & mutation issues**
-   - 🔴 **React rendering bugs**
-   - 🔴 **Logic & conditional errors**
-   - 🔴 **Date handling mistakes**
-   - 🔴 **Context API misuse**
-   - 🔴 **Missing function invocations**
-3. The app should be **fully functional** after all bugs are fixed.
-4. Do **NOT** change the overall architecture or structure — only fix what's broken.
-
-## 🧩 App Description
-
-The **Habit Tracker** app allows users to:
-
-- ✅ **Add new habits** via a form (name, goal value)
-- ✅ **View a list of habits** on the dashboard
-- ✅ **Toggle habit completion** for the current day
-- ✅ **Track streaks** — consecutive days a habit was completed
-- ✅ **Edit habit details** inline
-- ✅ **Delete habits** from the list
-- ✅ **Show All / Show Less** toggle for the habit list
-- ✅ **See stats** like progress percentage and top category
-
----
-
-## 🗂️ Project Structure
-
-```
-src/
-├── App.jsx                    # Root component
-├── main.jsx                   # Entry point
-├── index.css                  # Global styles
-├── components/
-│   ├── HabitForm.jsx          # Form to add new habits
-│   ├── HabitItem.jsx          # Individual habit card (toggle, edit, delete)
-│   └── HabitList.jsx          # Displays list of habits with stats
-├── context/
-│   └── HabitContext.jsx       # Context API provider with all habit logic
-└── pages/
-    └── Dashboard.jsx          # Main dashboard layout
-```
-
----
-
-## 🛠️ Tech Stack
-
-- **React 18+** (with Hooks)
-- **Vite** (build tool)
-- **React Hook Form** (form handling)
-- **Tailwind CSS** (styling)
-- **Context API** (state management)
-
----
+Momentum OS uses "Ironclad Math" to prevent exploit habits:
+- **Momentum Decay:** Scores drop automatically if no progress events occur within a 5-day window.
+- **Execution Ratio:** Measures your decisiveness vs. hesitation by comparing `Progress` vs. `Regress` events.
+- **Focus Index:** Calculates resource allocation by analyzing the momentum density of your top 3 vectors.
 
 ## 🚀 Getting Started
 
-```bash
-# Install dependencies
-npm install
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
 
-# Start the development server
-npm run dev
-```
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DakshGarg-19/Momentum-OS.git
+   cd MomentumOS
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🏗️ Architecture
+
+- **Frontend:** Vite + React + TailwindCSS v4
+- **Charts:** Recharts
+- **State Management:** Custom `useMomentumDB` hook + Context API
+- **AI Analytics:** Puter.js SDK
+- **Draggable UI:** React-Draggable
+
+## 📜 Technical Logic Guide
+
+For a deep dive into the mathematical formulas and data structures, refer to the [Master Architecture Guide](./master_architecture_guide.md).
 
 ---
 
-
-
-## ⚡ Good Luck!
-
-Read the code carefully, trace the logic, and squash every bug. May the best debugger win! 🏅
+Built with ⚡ by [Daksh Garg](https://github.com/DakshGarg-19)
