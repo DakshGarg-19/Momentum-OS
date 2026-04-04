@@ -2,7 +2,7 @@
 
 **Momentum OS** is a professional-grade, local-first behavioral telemetry system designed for continuous forward motion. It evolves the concept of a "habit tracker" into a clinical, data-driven operating system for managing complex goals (Vectors) and quantifying execution momentum.
 
-![Momentum OS Showcase](https://raw.githubusercontent.com/DakshGarg-19/Momentum-OS/main/public/showcase-placeholder.png) *(Placeholder: Replace with actual screenshot)*
+![Momentum OS Showcase](public/showcase.png)
 
 ## ⚡ Core Philosophy: Vectors vs Tasks
 
