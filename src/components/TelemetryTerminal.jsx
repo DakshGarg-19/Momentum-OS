@@ -333,9 +333,7 @@ Format your response strictly in Markdown without any emojis. Use this exact str
 ### The Prime Directive
 (Give one highly specific, ruthless action for the next 24 hours. If a 'Top Vector' exists in the data, reference it by name to make the suggestion more personal and actionable.)`;
 
-      const response = await window.puter.ai.chat(prompt, {
-        model: "claude-3-7-sonnet",
-      });
+      const response = await window.puter.ai.chat(prompt);
       const text =
         typeof response === "string"
           ? response
