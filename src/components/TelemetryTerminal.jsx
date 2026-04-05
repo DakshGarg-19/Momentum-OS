@@ -280,136 +280,136 @@ function StrategicAuditPanel({ vectors, activityLog }) {
   const [aiInsight, setAiInsight] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-//   const generateStrategicReport = async () => {
-//     setIsAnalyzing(true);
-//     setAiInsight(null);
-
-//     // Dynamically script load puter if missing
-//     if (!window.puter) {
-//       try {
-//         await new Promise((resolve, reject) => {
-//           const script = document.createElement("script");
-//           script.src = "https://js.puter.com/v2/";
-//           script.onload = resolve;
-//           script.onerror = reject;
-//           document.head.appendChild(script);
-//         });
-//       } catch (err) {
-//         setAiInsight("AI Engine not initialized. Please refresh.");
-//         setIsAnalyzing(false);
-//         return;
-//       }
-//     }
-
-//     try {
-//       if (!window.puter?.ai?.chat) throw new Error("Puter SDK unavailable");
-//       const telemetry = computeTelemetry(vectors, activityLog);
-//       const telemetryJSON = JSON.stringify(
-//         {
-//           "Total Momentum": telemetry.totalSystemMomentum,
-//           "Action Velocity": telemetry.actionVelocity,
-//           "Total Focus Hours": telemetry.totalFocusHoursThisWeek,
-//           "Execution Ratio": `${(telemetry.executionRatio * 100).toFixed(1)}%`,
-//           "Active Vectors": telemetry.activeCount,
-//           "Stale Vectors": telemetry.staleCount,
-//           "Top Vector": telemetry.topVector?.title || "None",
-//         },
-//         null,
-//         2,
-//       );
-
-//       const prompt = `You are Momentum OS, a behavioral strategist and performance coach. Your tone is professional, insightful, and direct. Analyze this user's behavioral telemetry: ${telemetryJSON}.
-
-// Format your response strictly in Markdown without any emojis. Use this exact structure:
-
-// ### Executive Summary
-// (Summarize their momentum trajectory in 1-2 sentences, citing the exact 'Total Momentum' value from the data. Be direct about whether this is growth, stagnation, or decay.)
-
-// ### Deep Insights
-// - **Velocity & Focus:** Analyze the relationship between 'Action Velocity' and 'Total Focus Hours'. Quote both numbers. Explain what this reveals about their efficiency (e.g., 'deep work', 'busy work', or 'planning phase').
-// - **Execution Consistency:** Analyze their 'Execution Ratio'. Quote the percentage. Explain what this percentage indicates about their decisiveness or potential for hesitation.
-// - **Vector Health:** Analyze the 'Active' vs. 'Stale' vector counts. Quote both numbers. Comment on whether this signals a healthy focus or a risk of system drift.
-
-// ### The Prime Directive
-// (Give one highly specific, ruthless action for the next 24 hours. If a 'Top Vector' exists in the data, reference it by name to make the suggestion more personal and actionable.)`;
-
-//       const response = await window.puter.ai.chat(prompt, {
-//         model: "claude-3-7-sonnet",
-//       });
-//       const text =
-//         typeof response === "string"
-//           ? response
-//           : (response?.message?.content ?? JSON.stringify(response));
-//       setAiInsight(text);
-//     } catch (err) {
-//       setAiInsight("System Audit Offline: Connect to Network.");
-//       console.warn("[StrategicAudit]", err.message);
-//     } finally {
-//       setIsAnalyzing(false);
-//     }
-//   };
-
-const generateStrategicReport = async () => {
+  const generateStrategicReport = async () => {
     setIsAnalyzing(true);
     setAiInsight(null);
 
-    // 1. Recursive Poller: Wait for Puter AND Puter.ai to be ready
-    const waitForPuter = async (attempts = 0) => {
-      if (window.puter?.ai?.chat) return true;
-      if (attempts >= 10) return false;
-      await new Promise(resolve => setTimeout(resolve, 500));
-      return waitForPuter(attempts + 1);
-    };
-
-    const isReady = await waitForPuter();
-    
-    if (!isReady) {
-      setAiInsight("System Audit Offline: Puter SDK failed to load. If you use AdBlockers, please disable them for this site.");
-      setIsAnalyzing(false);
-      return;
+    // Dynamically script load puter if missing
+    if (!window.puter) {
+      try {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://js.puter.com/v2/";
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      } catch (err) {
+        setAiInsight("AI Engine not initialized. Please refresh.");
+        setIsAnalyzing(false);
+        return;
+      }
     }
 
     try {
+      if (!window.puter?.ai?.chat) throw new Error("Puter SDK unavailable");
       const telemetry = computeTelemetry(vectors, activityLog);
-      const telemetryJSON = JSON.stringify({
-        "Total Momentum": telemetry.totalSystemMomentum,
-        "Action Velocity": telemetry.actionVelocity,
-        "Total Focus Hours": telemetry.totalFocusHoursThisWeek,
-        "Execution Ratio": `${(telemetry.executionRatio * 100).toFixed(1)}%`,
-        "Active Vectors": telemetry.activeCount,
-        "Stale Vectors": telemetry.staleCount,
-        "Top Vector": telemetry.topVector?.title || "None",
-      }, null, 2);
+      const telemetryJSON = JSON.stringify(
+        {
+          "Total Momentum": telemetry.totalSystemMomentum,
+          "Action Velocity": telemetry.actionVelocity,
+          "Total Focus Hours": telemetry.totalFocusHoursThisWeek,
+          "Execution Ratio": `${(telemetry.executionRatio * 100).toFixed(1)}%`,
+          "Active Vectors": telemetry.activeCount,
+          "Stale Vectors": telemetry.staleCount,
+          "Top Vector": telemetry.topVector?.title || "None",
+        },
+        null,
+        2,
+      );
 
-      const prompt = `You are Momentum OS, a behavioral strategist and performance coach. Tone: professional, insightful, direct. No emojis. Analyze this telemetry: ${telemetryJSON}.
+      const prompt = `You are Momentum OS, a behavioral strategist and performance coach. Your tone is professional, insightful, and direct. Analyze this user's behavioral telemetry: ${telemetryJSON}.
 
-Format in Markdown:
+Format your response strictly in Markdown without any emojis. Use this exact structure:
+
 ### Executive Summary
-(1-2 sentences on momentum trajectory citing 'Total Momentum'.)
+(Summarize their momentum trajectory in 1-2 sentences, citing the exact 'Total Momentum' value from the data. Be direct about whether this is growth, stagnation, or decay.)
 
 ### Deep Insights
-- **Velocity & Focus:** (Analyze Action Velocity vs Focus Hours. Efficiency assessment.)
-- **Execution Consistency:** (Analyze Execution Ratio. Decisiveness assessment.)
-- **Vector Health:** (Analyze Active vs Stale vectors. Drift/Scope assessment.)
+- **Velocity & Focus:** Analyze the relationship between 'Action Velocity' and 'Total Focus Hours'. Quote both numbers. Explain what this reveals about their efficiency (e.g., 'deep work', 'busy work', or 'planning phase').
+- **Execution Consistency:** Analyze their 'Execution Ratio'. Quote the percentage. Explain what this percentage indicates about their decisiveness or potential for hesitation.
+- **Vector Health:** Analyze the 'Active' vs. 'Stale' vector counts. Quote both numbers. Comment on whether this signals a healthy focus or a risk of system drift.
 
 ### The Prime Directive
-(One ruthless action for the next 24 hours. Reference the Top Vector by name.)`;
+(Give one highly specific, ruthless action for the next 24 hours. If a 'Top Vector' exists in the data, reference it by name to make the suggestion more personal and actionable.)`;
 
-      // Use the model parameter correctly
-      const response = await window.puter.ai.chat(prompt, { model: "claude-3-7-sonnet" });
-      
-      const text = typeof response === "string" 
-        ? response 
-        : (response?.message?.content || JSON.stringify(response));
-      
+      const response = await window.puter.ai.chat(prompt, {
+        model: "claude-3-7-sonnet",
+      });
+      const text =
+        typeof response === "string"
+          ? response
+          : (response?.message?.content ?? JSON.stringify(response));
       setAiInsight(text);
     } catch (err) {
-      console.error("Puter AI Error:", err);
-      setAiInsight("System Audit Error: AI service returned an error. Please try again.");
+      setAiInsight("System Audit Offline: Connect to Network.");
+      console.warn("[StrategicAudit]", err.message);
     } finally {
       setIsAnalyzing(false);
     }
   };
+
+// const generateStrategicReport = async () => {
+//     setIsAnalyzing(true);
+//     setAiInsight(null);
+
+//     // 1. Recursive Poller: Wait for Puter AND Puter.ai to be ready
+//     const waitForPuter = async (attempts = 0) => {
+//       if (window.puter?.ai?.chat) return true;
+//       if (attempts >= 10) return false;
+//       await new Promise(resolve => setTimeout(resolve, 500));
+//       return waitForPuter(attempts + 1);
+//     };
+
+//     const isReady = await waitForPuter();
+    
+//     if (!isReady) {
+//       setAiInsight("System Audit Offline: Puter SDK failed to load. If you use AdBlockers, please disable them for this site.");
+//       setIsAnalyzing(false);
+//       return;
+//     }
+
+//     try {
+//       const telemetry = computeTelemetry(vectors, activityLog);
+//       const telemetryJSON = JSON.stringify({
+//         "Total Momentum": telemetry.totalSystemMomentum,
+//         "Action Velocity": telemetry.actionVelocity,
+//         "Total Focus Hours": telemetry.totalFocusHoursThisWeek,
+//         "Execution Ratio": `${(telemetry.executionRatio * 100).toFixed(1)}%`,
+//         "Active Vectors": telemetry.activeCount,
+//         "Stale Vectors": telemetry.staleCount,
+//         "Top Vector": telemetry.topVector?.title || "None",
+//       }, null, 2);
+
+//       const prompt = `You are Momentum OS, a behavioral strategist and performance coach. Tone: professional, insightful, direct. No emojis. Analyze this telemetry: ${telemetryJSON}.
+
+// Format in Markdown:
+// ### Executive Summary
+// (1-2 sentences on momentum trajectory citing 'Total Momentum'.)
+
+// ### Deep Insights
+// - **Velocity & Focus:** (Analyze Action Velocity vs Focus Hours. Efficiency assessment.)
+// - **Execution Consistency:** (Analyze Execution Ratio. Decisiveness assessment.)
+// - **Vector Health:** (Analyze Active vs Stale vectors. Drift/Scope assessment.)
+
+// ### The Prime Directive
+// (One ruthless action for the next 24 hours. Reference the Top Vector by name.)`;
+
+//       // Use the model parameter correctly
+//       const response = await window.puter.ai.chat(prompt, { model: "claude-3-7-sonnet" });
+      
+//       const text = typeof response === "string" 
+//         ? response 
+//         : (response?.message?.content || JSON.stringify(response));
+      
+//       setAiInsight(text);
+//     } catch (err) {
+//       console.error("Puter AI Error:", err);
+//       setAiInsight("System Audit Error: AI service returned an error. Please try again.");
+//     } finally {
+//       setIsAnalyzing(false);
+//     }
+//   };
 
   return (
     <div
